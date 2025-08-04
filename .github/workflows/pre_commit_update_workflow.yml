@@ -15,7 +15,7 @@ on:
 env:
   UP_TO_DATE: false
   PYTHON_VERSION: "3.13"
-  REVIEWERS: "tomvothecoder"
+  REVIEWERS: "altheaden"
 
 jobs:
   auto-update:
@@ -47,7 +47,7 @@ jobs:
         run: |
           eval "$(micromamba shell hook --shell bash)"
           micromamba activate pre_commit_dev
-          git clone https://github.com/E3SM-Project/e3sm_diags.git update-pre-commit-deps
+          git clone https://github.com/altheaden/e3sm_diags.git update-pre-commit-deps
           cd update-pre-commit-deps
           # Configure git using GitHub Actions credentials.
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -73,12 +73,14 @@ jobs:
         if: ${{ env.UP_TO_DATE == 'false' }}
         run: |
           cd update-pre-commit-deps
+          gh pr close update-pre-commit-deps \
+          --comment "This PR was closed to create a new updated PR" \
+          -d
           gh pr create \
           --title "Update pre-commit and its dependencies" \
           --body "This PR was auto-generated to update pre-commit and its dependencies." \
           --head update-pre-commit-deps \
-          --reviewer ${{ env.REVIEWERS }} \
-          --label ci
+          --reviewer ${{ env.REVIEWERS }}
         env:
           GH_TOKEN: ${{ github.token }}
 
