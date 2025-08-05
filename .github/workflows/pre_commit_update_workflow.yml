@@ -15,7 +15,7 @@ on:
 env:
   UP_TO_DATE: false
   PYTHON_VERSION: "3.13"
-  REVIEWERS: "tomvothecoder"
+  REVIEWERS: "altheaden"
   PR_BODY: "\"This PR was auto-generated to update pre-commit and its dependencies.\n
     Checklist:\n
     * [ ] `conda-env/dev.yml` has been **manually** updated to reflect these changes.\""
@@ -50,7 +50,7 @@ jobs:
         run: |
           eval "$(micromamba shell hook --shell bash)"
           micromamba activate pre_commit_dev
-          git clone https://github.com/E3SM-Project/e3sm_diags.git update-pre-commit-deps
+          git clone https://github.com/altheaden/e3sm_diags.git update-pre-commit-deps
           cd update-pre-commit-deps
           # Configure git using GitHub Actions credentials.
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
